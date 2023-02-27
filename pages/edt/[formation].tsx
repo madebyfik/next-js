@@ -4,13 +4,21 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
+interface Event {
+    title: string;
+    start: string;
+    end: string;
+    extendedProps: { department: string };
+    description: string;
+}
+
 export default function Ade() {
     const router = useRouter();
     const {formation} = router.query;
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState<Event[]>([]);
 
     useEffect(() => {
-        let tmpEvents = [];
+        let tmpEvents: Event[] = [];
 
         if(formation !== undefined) {
             const data = require(`@/public/ade/${formation}.json`);
@@ -36,6 +44,7 @@ export default function Ade() {
     return (
             <div>
                 <h1 className="font-mono text-3xl text-center font-bold mb-5 mt-5">
+                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/edt">
                         Retour à l'emploi du temps 📖
                     </a>
